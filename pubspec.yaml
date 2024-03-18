@@ -9,8 +9,8 @@ dependencies:
   flutter:
     sdk: flutter
 
-  get: ^4.6.5
-  firebase_messaging: ^14.7.1
+  get: ^4.6.6
+  firebase_messaging: ^14.7.20
 
 dev_dependencies:
   flutter_test:
