@@ -25,7 +25,7 @@ class FirebaseCloudMessagingService extends GetxService {
 
     // Background
     // FCM PayLoad Messages listen
-    FirebaseMessaging.onBackgroundMessage(handler.onNotificationReceived);
+    FirebaseMessaging.onBackgroundMessage((x)=>handler.onNotificationReceived(x));
 
     // Terminated status
     // Notification Tap Listen
