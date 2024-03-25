@@ -12,22 +12,23 @@ class FirebaseCloudMessagingService extends GetxService {
 
   final String firebaseFunctionsUrl;
   final FirebaseCloudMessagingServiceHandler handler;
-  final Future<void> Function(RemoteMessage payload) onNotificationReceived;
+  final Future<void> Function(RemoteMessage payload)
+      onBackgroundNotificationReceived;
 
   FirebaseCloudMessagingService({
     required this.handler,
     required this.firebaseFunctionsUrl,
-    required this.onNotificationReceived,
+    required this.onBackgroundNotificationReceived,
   });
 
   Future<FirebaseCloudMessagingService> init() async {
     // Foreground
     // FCM PayLoad Messages listen
-    FirebaseMessaging.onMessage.listen(onNotificationReceived);
+    FirebaseMessaging.onMessage.listen(onBackgroundNotificationReceived);
 
     // Background
     // FCM PayLoad Messages listen
-    FirebaseMessaging.onBackgroundMessage(onNotificationReceived);
+    FirebaseMessaging.onBackgroundMessage(onBackgroundNotificationReceived);
 
     // Terminated status
     // Notification Tap Listen
