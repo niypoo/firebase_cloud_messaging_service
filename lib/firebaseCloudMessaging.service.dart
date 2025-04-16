@@ -25,7 +25,10 @@ class FirebaseCloudMessagingService extends GetxService {
   Future<FirebaseCloudMessagingService> init() async {
 
     // Request getAPNSToken
-    if(Platform.isIOS) await instance.getAPNSToken();
+    if(Platform.isIOS) {
+     final String? aPNSToken= await instance.getAPNSToken();
+     print('APNSToken: $aPNSToken');
+    };
 
     // Foreground
     // FCM PayLoad Messages listen
@@ -41,7 +44,6 @@ class FirebaseCloudMessagingService extends GetxService {
     // Background not terminated
     // Notification Tap Listen
     FirebaseMessaging.onMessageOpenedApp.listen(handler.onNotificationTap);
-
 
     // return self
     return this;
