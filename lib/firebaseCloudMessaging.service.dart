@@ -103,7 +103,7 @@ class FirebaseCloudMessagingService extends GetxService {
 
   Future<String?> getToken() async {
     if(Platform.isIOS) {
-      Future.delayed(const Duration(seconds: 3));
+      await Future.delayed(const Duration(seconds: 3));
       final String? aPNSToken= await instance.getAPNSToken();
       print('APNSToken: $aPNSToken');
     }
