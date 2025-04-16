@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:firebase_cloud_messaging_service/abstracts/handler.abstract.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
@@ -22,6 +23,10 @@ class FirebaseCloudMessagingService extends GetxService {
   });
 
   Future<FirebaseCloudMessagingService> init() async {
+
+    // Request getAPNSToken
+    if(Platform.isIOS) await instance.getAPNSToken();
+
     // Foreground
     // FCM PayLoad Messages listen
     FirebaseMessaging.onMessage.listen(onBackgroundNotificationReceived);
@@ -33,10 +38,10 @@ class FirebaseCloudMessagingService extends GetxService {
     // Terminated status
     // Notification Tap Listen
     await instance.getInitialMessage().then(handler.onNotificationTap);
-
     // Background not terminated
     // Notification Tap Listen
     FirebaseMessaging.onMessageOpenedApp.listen(handler.onNotificationTap);
+
 
     // return self
     return this;
