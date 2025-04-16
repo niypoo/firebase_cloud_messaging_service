@@ -28,7 +28,7 @@ class FirebaseCloudMessagingService extends GetxService {
     if(Platform.isIOS) {
      final String? aPNSToken= await instance.getAPNSToken();
      print('APNSToken: $aPNSToken');
-    };
+    }
 
     // Foreground
     // FCM PayLoad Messages listen
