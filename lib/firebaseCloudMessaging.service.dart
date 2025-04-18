@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:firebase_cloud_messaging_service/abstracts/handler.abstract.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
@@ -23,12 +22,6 @@ class FirebaseCloudMessagingService extends GetxService {
   });
 
   Future<FirebaseCloudMessagingService> init() async {
-
-    // Request getAPNSToken
-    if(Platform.isIOS) {
-     final String? aPNSToken= await instance.getAPNSToken();
-     print('APNSToken: $aPNSToken');
-    }
 
     // Foreground
     // FCM PayLoad Messages listen
@@ -102,11 +95,6 @@ class FirebaseCloudMessagingService extends GetxService {
   }
 
   Future<String?> getToken() async {
-    if(Platform.isIOS) {
-      await Future.delayed(const Duration(seconds: 3));
-      final String? aPNSToken= await instance.getAPNSToken();
-      print('APNSToken: $aPNSToken');
-    }
     return await instance.getToken();
   }
 
