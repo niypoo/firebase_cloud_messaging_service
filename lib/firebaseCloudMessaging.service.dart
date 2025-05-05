@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:firebase_cloud_messaging_service/abstracts/handler.abstract.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
@@ -15,6 +16,8 @@ class FirebaseCloudMessagingService extends GetxService {
   final Future<void> Function(RemoteMessage payload)
       onBackgroundNotificationReceived;
 
+  String? iosAPNSToken;
+
   FirebaseCloudMessagingService({
     required this.handler,
     required this.firebaseFunctionsUrl,
@@ -22,7 +25,6 @@ class FirebaseCloudMessagingService extends GetxService {
   });
 
   Future<FirebaseCloudMessagingService> init() async {
-
     // Foreground
     // FCM PayLoad Messages listen
     FirebaseMessaging.onMessage.listen(onBackgroundNotificationReceived);
@@ -37,6 +39,12 @@ class FirebaseCloudMessagingService extends GetxService {
     // Background not terminated
     // Notification Tap Listen
     FirebaseMessaging.onMessageOpenedApp.listen(handler.onNotificationTap);
+
+    // Request APNSToken only for iOS
+    // This token is used to send push notifications to iOS devices
+    if (Platform.isIOS) {
+      iosAPNSToken = await FirebaseMessaging.instance.getAPNSToken();
+    }
 
     // return self
     return this;
